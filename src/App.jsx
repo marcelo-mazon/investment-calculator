@@ -12,6 +12,8 @@ function App() {
     duration: 10,
   });
 
+  const inputIsValid = investParam.duration >= 1;
+
   function handleInputChange(inputId, value) {
     setInvestParam((prevInvestParam) => {
       return { ...prevInvestParam, [inputId]: +value };
@@ -22,7 +24,10 @@ function App() {
     <>
       <Header />
       <UserInput inputValues={investParam} onInputChange={handleInputChange} />
-      <Results inputValues={investParam} />
+      {!inputIsValid && (
+        <p className="center">Please enter a duration greater than one.</p>
+      )}
+      {inputIsValid && <Results inputValues={investParam} />}
     </>
   );
 }
